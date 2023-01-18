@@ -35,6 +35,12 @@
       "name": "Cookies",
       "category": "Dessert",
       "isInCart": false
+    },
+    {
+      "name": "Millo",
+      "category": "Dairy",
+      "isIncart": false,
+      "id": 7
     }
   ]
 }

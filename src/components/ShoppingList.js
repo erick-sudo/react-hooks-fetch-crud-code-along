@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ItemForm from "./ItemForm";
 import Filter from "./Filter";
 import Item from "./Item";
@@ -6,6 +6,22 @@ import Item from "./Item";
 function ShoppingList() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [items, setItems] = useState([]);
+
+  //Add useEffect hook
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = () => {
+    fetch("http://localhost:4000/items")
+    .then((res) => res.json())
+    .then((data) => setItems(data));
+  };
+
+  // add this function!
+  function handleAddItem(newItem) {
+    setItems([newItem, ...items]);
+  }
 
   function handleCategoryChange(category) {
     setSelectedCategory(category);
@@ -19,7 +35,7 @@ function ShoppingList() {
 
   return (
     <div className="ShoppingList">
-      <ItemForm />
+      <ItemForm onAddItem={handleAddItem} />
       <Filter
         category={selectedCategory}
         onCategoryChange={handleCategoryChange}
